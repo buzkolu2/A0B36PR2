@@ -30,7 +30,7 @@ public class EditovatKlienta extends Frame {
         ulice.vstup.setText(klient.getUlice());
 
         psc = new VlozitText("Město a PSČ");
-        ulice.vstup.setText(klient.getPSC());
+        psc.vstup.setText(klient.getPSC());
 
         ico = new VlozitText("IČO");
         ico.vstup.setText(klient.getICO());
@@ -39,7 +39,7 @@ public class EditovatKlienta extends Frame {
         dic.vstup.setText(klient.getDIC());
 
         sleva = new VlozitCislo("Sleva v %");
-        //sleva.vstup.getText(Double.toString(klient.getSleva()));
+        sleva.vstup.setText(Double.toString(klient.getSleva()));
 
         ok = new Button("Vytvořit");
         ok.setBackground(Color.orange);
