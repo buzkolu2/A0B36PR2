@@ -6,6 +6,7 @@ package redap;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 import javax.swing.*;
 /**
  * okno pro vytvoření nové položky
@@ -16,10 +17,11 @@ public class NovaPolozka extends Frame{
     VlozitCislo jCena, pocet;
     Button ok;
     int zdroj;
+    static Faktura f;
     
     NovaPolozka(int i){
         zdroj=i;
-        
+        this.f = f;
         popis=new VlozitText("Popis");
         jCena=new VlozitCislo("Cena za kus");
         pocet=new VlozitCislo("Počet kusů");
@@ -58,12 +60,14 @@ public class NovaPolozka extends Frame{
                 if (zdroj==1){
                 NovaFaktura.polozky.pridejPrvek(pocet.vstup.getText()+
                         " ks "+popis.vstup.getText());
+                polozka.setId(Database.getInstance().insertPolozka(polozka));
+                
                 NovaFaktura.polozkyFaktura.add(polozka);
                 } else {EditovatFakturu.polozky.pridejPrvek(pocet.vstup.getText()+
                         " ks "+popis.vstup.getText());
                         EditovatFakturu.novePolozkyFaktura.add(polozka);
                 }
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                     System.err.println(ex);
                     JOptionPane.showMessageDialog(null, "Počet kusů musí být celé číslo",
                             "Chyba", JOptionPane.OK_OPTION);

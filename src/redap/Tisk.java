@@ -7,7 +7,6 @@ import java.awt.geom.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * vytvoří vzor faktury k tisku
@@ -17,12 +16,12 @@ import java.util.*;
 public class Tisk implements Printable {
 
     Faktura faktura;
-    LinkedList<Polozka> polozky;
+    java.util.List<Polozka> polozky;
     int strLength;
 
     public Tisk(Faktura faktura) {
         this.faktura = faktura;
-        polozky = (LinkedList) faktura.getPolozky();
+        polozky = faktura.getPolozky();
         PrinterJob pj = PrinterJob.getPrinterJob();
         pj.setPrintable(this);
         PageFormat pf = new PageFormat();
@@ -162,7 +161,7 @@ public class Tisk implements Printable {
         g2.drawString("Částka k prolacení: ", 455 - strLength, 685);
 
         g2.drawString("Převzal dne:________________", 57, 697);
-        System.out.println("1");
+        //.println("1");
         
         /*
          * Vložení polozek do tabulky

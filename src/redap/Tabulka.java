@@ -19,13 +19,13 @@ public class Tabulka {
     JTable tabulka;
     DefaultTableModel model;
     JScrollPane spane;
-    LinkedList<Polozka> polozky;
+    List<Polozka> polozky;
 
     Tabulka(Faktura faktura) {
         int radky = faktura.getPolozky().size();
         model = new DefaultTableModel(radky, 5);
         tabulka = new JTable(radky, 5);
-        polozky = (LinkedList) faktura.getPolozky();
+        polozky = faktura.getPolozky();
 
 
         Panel tab = new Panel();

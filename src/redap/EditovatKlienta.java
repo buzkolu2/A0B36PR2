@@ -20,8 +20,10 @@ public class EditovatKlienta extends Frame {
     VlozitCislo sleva;
     Button ok;
     int idx;
+    static Klient klient;
 
     EditovatKlienta(Klient klient, int idx) {
+        this.klient = klient;
         this.idx = idx;
         nazev = new VlozitText("Jméno klienta");
         nazev.vstup.setText(klient.getJmeno());
@@ -78,28 +80,38 @@ public class EditovatKlienta extends Frame {
         public void actionPerformed(ActionEvent e) {
             try {
 
-                Klient novyKlient = new Klient(nazev.vstup.getText(),
-                        ulice.vstup.getText(),
-                        psc.vstup.getText(),
-                        ico.vstup.getText(),
-                        dic.vstup.getText(),
-                        Double.parseDouble(sleva.vstup.getText()));
-
-                Menu.klienti.set(idx, novyKlient);
-
+//                Klient novyKlient = new Klient(nazev.vstup.getText(),
+//                        ulice.vstup.getText(),
+//                        psc.vstup.getText(),
+//                        ico.vstup.getText(),
+//                        dic.vstup.getText(),
+//                        Double.parseDouble(sleva.vstup.getText()));
+//                
+//                Menu.klienti.set(idx, novyKlient);
+                
+                       
+                klient.setJmeno(nazev.vstup.getText());
+                klient.setUlice(ulice.vstup.getText());
+                klient.setPsc(psc.vstup.getText());
+                klient.setDic(dic.vstup.getText());
+                klient.setIco(ico.vstup.getText());
+                klient.setSleva( Double.parseDouble(sleva.vstup.getText()));
+                
+                Database.getInstance().updateKlient(klient);
+                
                 OknoMenu.klienti.odeberPrvek(idx);
-                OknoMenu.klienti.seznam.add(idx, novyKlient.getJmeno());
+                OknoMenu.klienti.seznam.add(idx, klient.getJmeno());
 
-                try {
-                    ObjectOutputStream out = new ObjectOutputStream(
-                            new FileOutputStream("klienti"));
-                    out.writeObject(Menu.klienti);
-                    out.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+//                try {                    
+//                    ObjectOutputStream out = new ObjectOutputStream(
+//                            new FileOutputStream("klienti"));
+//                    out.writeObject(Menu.klienti);
+//                    out.close();
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
 
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.err.println(ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Chyba", JOptionPane.OK_OPTION);
             }

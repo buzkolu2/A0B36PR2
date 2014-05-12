@@ -70,9 +70,8 @@ public class NovyKlient extends JFrame {
                         dic.vstup.getText(),
                         Double.parseDouble(sleva.vstup.getText()));
                         
-                Menu.klienti.add(novyKlient);
+                Menu.pridatKlienta(novyKlient);
                                
-                //NovaFaktura.klienti.pridejPrvek(nazev.vstup.getText());
                 OknoMenu.klienti.pridejPrvek(nazev.vstup.getText());
                 
                 try {

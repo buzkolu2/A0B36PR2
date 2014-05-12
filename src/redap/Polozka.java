@@ -14,12 +14,22 @@ public class Polozka implements java.io.Serializable {
     private String popis;
     private int pocet;
     private double jcena;
+    private int id;
     
     public Polozka (String popis, double jcena, int pocet){
         this.popis=popis;
         this.jcena=jcena;
         this.pocet=pocet;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }    
+    
     
     public String getPopis () {
         return this.popis;

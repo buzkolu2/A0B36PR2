@@ -1,6 +1,15 @@
 package redap;
 
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Panel;
 import java.awt.event.*;
 import java.io.*;
 import java.text.*;
@@ -22,7 +31,7 @@ public class EditovatFakturu extends Frame {
     JFormattedTextField datumPlneni;
     static VlozitText datum;
     Button novaPolozka, smazPolozku, ok, zmenitOdberatele;
-    static LinkedList<Polozka> novePolozkyFaktura;
+    static List<Polozka> novePolozkyFaktura;
     static SimpleDateFormat format;
     private Faktura faktura;
     private int index;
@@ -33,11 +42,13 @@ public class EditovatFakturu extends Frame {
         this.faktura = faktura;
         klienti = new Seznam();
 
-        klienti.pridejPrvek(faktura.getKlient().getJmeno());
+        if (faktura.getKlient() != null) {
+            klienti.pridejPrvek(faktura.getKlient().getJmeno());
+        }
         klienti.list.setEnabled(false);
 
         polozky = new Seznam();
-        novePolozkyFaktura = (LinkedList<Polozka>) faktura.getPolozky();
+        novePolozkyFaktura = faktura.getPolozky();
         for (Polozka p : novePolozkyFaktura) {
             polozky.pridejPrvek(p.getPopis());
         }
@@ -67,7 +78,7 @@ public class EditovatFakturu extends Frame {
         this.setTitle("Editace faktury č. " + Integer.toString(faktura.getCisloFaktury()));
         this.setSize(400, 400);
         this.addWindowListener(new WindowAdapter() {
-
+            @Override
             public void windowClosing(WindowEvent e) {
                 e.getWindow().dispose();
             }
@@ -134,6 +145,7 @@ public class EditovatFakturu extends Frame {
      */
     class ZmenitOdbrerateleAL implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             klienti.list.setEnabled(true);
             klienti.odeberPrvek(0);
@@ -183,7 +195,7 @@ public class EditovatFakturu extends Frame {
                         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
                         format.setLenient(false);
                         faktura.setDatumPlneni(format.parse(EditovatFakturu.datum.vstup.getText().trim()));
-                        
+
                         //pokud byl upraven klient, ulož nového klienta
                         //a přepiš list v hlavní okně
                         if (klienti.list.isEnabled()) {
@@ -195,28 +207,29 @@ public class EditovatFakturu extends Frame {
                         }
 
                         faktura.setPolozky(novePolozkyFaktura);
-
+                        
+                        Database.getInstance().updateFaktura(faktura);
                         //přidat klienta do seznamu v hlaním okně
-                        System.out.println(idx);
+                        //System.out.println(idx);
 
 
                         //zavřít okno                        
                         EditovatFakturu.this.dispose();
 
-                        try {
-                            ObjectOutputStream out = new ObjectOutputStream(
-                                    new FileOutputStream("faktury"));
-                            out.writeObject(Menu.faktury);
-                            out.close();
-
-                            ObjectOutputStream out2 = new ObjectOutputStream(
-                                    new FileOutputStream("cisloFaktury"));
-                            out2.writeInt(Redap.cisloFaktury);
-                            out2.close();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                    } catch (ParseException pe) {
+//                        try {
+//                            ObjectOutputStream out = new ObjectOutputStream(
+//                                    new FileOutputStream("faktury"));
+//                            out.writeObject(Menu.faktury);
+//                            out.close();
+//
+//                            ObjectOutputStream out2 = new ObjectOutputStream(
+//                                    new FileOutputStream("cisloFaktury"));
+//                            out2.writeInt(Redap.cisloFaktury);
+//                            out2.close();
+//                        } catch (IOException ex) {
+//                            ex.printStackTrace();
+//                        }
+                    } catch (Exception pe) {
                         JOptionPane.showMessageDialog(null,
                                 "Chybné datum", "Chyba", JOptionPane.OK_OPTION);
                     }

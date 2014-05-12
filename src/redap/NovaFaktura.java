@@ -10,6 +10,8 @@ import java.io.*;
 import java.text.*;
 import java.util.LinkedList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -133,8 +135,13 @@ public class NovaFaktura extends Frame {
         public void actionPerformed(ActionEvent e){
             int idx=NovaFaktura.polozky.vybranyPrvek();
             if (idx>=0){
-                NovaFaktura.polozky.odeberPrvek(idx);
-                NovaFaktura.polozkyFaktura.remove(idx);
+                try {
+                    NovaFaktura.polozky.odeberPrvek(idx);
+                    Database.getInstance().deletePolozka(NovaFaktura.polozkyFaktura.get(idx));
+                    NovaFaktura.polozkyFaktura.remove(idx);
+                } catch (Exception ex) {
+                    Logger.getLogger(NovaFaktura.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -158,27 +165,29 @@ public class NovaFaktura extends Frame {
                         Faktura novaFaktura=new Faktura(Menu.klienti.get(idx),
                             format.parse(NovaFaktura.datum.vstup.getText().trim()),
                             NovaFaktura.polozkyFaktura);
-                        Menu.faktury.add(novaFaktura);
+                        
+                        Menu.pridatFakturu(novaFaktura, novaFaktura.getKlient());
+                        //Menu.faktury.add(novaFaktura);
                         
                         OknoMenu.faktury.pridejPrvek(Integer.toString(novaFaktura.getCisloFaktury())
                                 +", "+novaFaktura.getKlient().getJmeno());
                         
                         NovaFaktura.this.dispose();
                         
-                        try {
-                            ObjectOutputStream out=new ObjectOutputStream(
-                                    new FileOutputStream("faktury"));
-                            out.writeObject(Menu.faktury);
-                            out.close();
-                            
-                            ObjectOutputStream out2=new ObjectOutputStream(
-                                    new FileOutputStream("cisloFaktury"));
-                            out2.writeInt(Redap.cisloFaktury);
-                            out2.close();                            
-                        }
-                        catch (IOException ex){
-                            ex.printStackTrace();
-                        }
+//                        try {
+//                            ObjectOutputStream out=new ObjectOutputStream(
+//                                    new FileOutputStream("faktury"));
+//                            out.writeObject(Menu.faktury);
+//                            out.close();
+//                            
+//                            ObjectOutputStream out2=new ObjectOutputStream(
+//                                    new FileOutputStream("cisloFaktury"));
+//                            out2.writeInt(Redap.cisloFaktury);
+//                            out2.close();                            
+//                        }
+//                        catch (IOException ex){
+//                            ex.printStackTrace();
+//                        }
                     } catch (ParseException pe){
                         JOptionPane.showMessageDialog(null,
                                 "Chybné datum", "Chyba", JOptionPane.OK_OPTION);

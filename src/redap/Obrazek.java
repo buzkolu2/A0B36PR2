@@ -27,6 +27,4 @@ public class Obrazek extends Panel{
             
         }
     }
-    
-     
 }

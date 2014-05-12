@@ -9,22 +9,27 @@ import java.text.*;
 
 /**
  * vytvoří novou fakturu
+ *
  * @author Fragolka
  */
 public class Faktura implements java.io.Serializable {
-    
+
     /**
      * faktura obsahuje údaje
-     * @param klient        klient na faktuře
-     * @param datumPlneni   datum plnění
-     * @param polozky       seznam polozek na faktuře
-     * 
+     *
+     * @param klient klient na faktuře
+     * @param datumPlneni datum plnění
+     * @param polozky seznam polozek na faktuře
+     *
      */
-
     private Klient klient;
     private Date datumPlneni, vystaveni;
     private List<Polozka> polozky;
-    private int cisloFaktury;
+    private int cisloFaktury, id;
+
+    public Faktura() {
+        vystaveni = new Date();
+    }
 
     public Faktura(Klient klient, Date datumPlneni,
             LinkedList polozky) {
@@ -35,40 +40,46 @@ public class Faktura implements java.io.Serializable {
         Redap.cisloFaktury++;
         this.cisloFaktury = Redap.cisloFaktury;
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
-     * 
+     *
      * @return klienta uvedeného na faktuře
      */
-
     public Klient getKlient() {
         return klient;
     }
-    
+
     /**
-     * 
+     *
      * @param klient nastaví klienta na faktuře
      */
-    public void setKlient(Klient klient){
-        this.klient=klient;
+    public void setKlient(Klient klient) {
+        this.klient = klient;
     }
-    
+
     /**
-     * 
+     *
      * @return datum,kdy má být transakce uskutečněna
      */
-
     public Date getDatumPlneni() {
         return datumPlneni;
     }
-    
+
     /**
-     * 
+     *
      * @param datum datum, kdy má být transakce uskutečněna
-     * 
+     *
      */
-    public void setDatumPlneni(Date datum){
-        this.datumPlneni=datum;
+    public void setDatumPlneni(Date datum) {
+        this.datumPlneni = datum;
     }
 
     /**
@@ -79,7 +90,7 @@ public class Faktura implements java.io.Serializable {
     }
 
     /**
-     * 
+     *
      * @return datum splatnosti nastavené automaticky 14 dní po datu vystavení
      */
     public Date getDatumSplatnosti() {
@@ -90,36 +101,33 @@ public class Faktura implements java.io.Serializable {
     }
 
     /**
-     * 
+     *
      * @return vrátí číslo faktury
      */
     public int getCisloFaktury() {
         return cisloFaktury;
     }
-    
+
     /**
-     * 
+     *
      * @return polozky uvedené na faktuře
      */
-
-    public List getPolozky() {
+    public List<Polozka> getPolozky() {
         return polozky;
     }
-    
+
     /**
-     * 
+     *
      * @param polozky nastaví položky na faktuře
      */
-    
-    public void setPolozky (LinkedList<Polozka> polozky){
-        this.polozky=polozky;
+    public void setPolozky(LinkedList<Polozka> polozky) {
+        this.polozky = polozky;
     }
-    
+
     /**
-     * 
+     *
      * @return spočítá a vrátí celkovou cenu bez DPH na faktuře
      */
-
     public double getCelkCenu() {
         double cena = 0;
         for (Polozka p : polozky) {
@@ -130,20 +138,24 @@ public class Faktura implements java.io.Serializable {
 
     /**
      * zaokrouhleno nahoru na jendo místo
+     *
      * @return částku odvedenou jako daň, tj. 20% z celkové ceny
-     * 
+     *
      */
     public double getDPH() {
         double dan = 0.2 * getCelkCenu();
         return (Math.ceil(dan * 10) / 10);
     }
-    
+
     /**
-     * 
+     *
      * @return cenu poníženou o DPH
      */
-
     public double getCenuSDPH() {
         return (getCelkCenu() + getDPH());
+    }
+
+    void setPolozky(List<Polozka> polozky) {
+        this.polozky = polozky;
     }
 }
