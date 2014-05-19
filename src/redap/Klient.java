@@ -8,7 +8,7 @@ package redap;
  * klient obsahuje jméno, adresu, DIČ a IČO
  * @author Fragolka
  */
-public class Klient implements java.io.Serializable{
+public class Klient{
     private String jmeno, ulice, psc, dic, ico;
     private double sleva;
     private int id;

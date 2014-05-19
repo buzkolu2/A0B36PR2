@@ -11,7 +11,6 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.*;
-import java.io.*;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;

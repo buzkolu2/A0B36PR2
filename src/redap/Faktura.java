@@ -5,14 +5,13 @@
 package redap;
 
 import java.util.*;
-import java.text.*;
 
 /**
  * vytvoří novou fakturu
  *
  * @author Fragolka
  */
-public class Faktura implements java.io.Serializable {
+public class Faktura {
 
     /**
      * faktura obsahuje údaje
