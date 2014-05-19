@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * textové pole a jeho název
+ * grafická struktura pro textové pole a jeho název
  * @author Fragolka
  */
 public class VlozitText extends TextField {

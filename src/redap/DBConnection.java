@@ -14,16 +14,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
+ * Vytváří spojení s POSTGRESQL databází, spravuje její parametry
+ * 
  * @author Fragolka
  */
 public class DBConnection {
-
-
-    //private static final String CONNECTION = "jdbc:postgresql://krizik.felk.cvut.cz:5434/ds2013_2";
-    //private static final String USERNAME = "ds2013_2";
-    //private static final String PASSWORD = "chicho";
-    
     private static final String CONNECTION = "jdbc:postgresql://krizik.felk.cvut.cz:5434/student_db13_39";
     private static final String USERNAME = "student_db13_39";
     private static final String PASSWORD = "db12_39";
@@ -36,6 +31,9 @@ public class DBConnection {
         this.conn = DriverManager.getConnection(CONNECTION, USERNAME, PASSWORD); 
     }
 
+    /*
+     * Vrací vytvořené spojení
+     */
     public java.sql.Connection getConnection(){
         return this.conn;
     }

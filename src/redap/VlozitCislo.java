@@ -8,7 +8,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * textové pole a jeho název
+ * grafická struktura pro textové pole a jeho název
+ * přijímá použe čísla
+ * 
  * @author Fragolka
  */
 public class VlozitCislo extends TextField {
@@ -52,13 +54,10 @@ public class VlozitCislo extends TextField {
             char c = e.getKeyChar();
             if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE && c != '.') {
                 e.consume();
-                System.out.println("1");
             } else if( c == '.' && !dot && getVstup().length() > 0){
                 dot = true;
-                System.out.println("2");
             } else if( c== '.' ){
                 e.consume();
-                System.out.println("3");
             }
         }
     }

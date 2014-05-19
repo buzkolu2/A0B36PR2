@@ -6,7 +6,7 @@ package redap;
 import java.awt.GridLayout;
 import javax.swing.*;
 /**
- * vzor pro seznam
+ * vzor pro hlavní seznam používaný v hlavním menu
  * @author Fragolka
  */
 public class Seznam {
@@ -21,8 +21,7 @@ public class Seznam {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         panel = new JScrollPane(list,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);        
     }
     
     /**

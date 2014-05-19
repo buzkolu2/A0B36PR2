@@ -10,11 +10,14 @@ package redap;
  * @author Fragolka
  */
 
-public class Polozka implements java.io.Serializable {
+public class Polozka {
     private String popis;
     private int pocet;
     private double jcena;
     private int id;
+    
+    public Polozka(){        
+    }
     
     public Polozka (String popis, double jcena, int pocet){
         this.popis=popis;
@@ -46,5 +49,17 @@ public class Polozka implements java.io.Serializable {
     public double getCena() {
         return (jcena*pocet);
     }
-            
+
+    public void setPopis(String popis) {
+        this.popis = popis;
+    }
+
+    public void setPocet(int pocet) {
+        this.pocet = pocet;
+    }
+
+    public void setJcena(double jcena) {
+        this.jcena = jcena;
+    }
+    
 }

@@ -21,7 +21,7 @@ import javax.swing.*;
  * the editor.
  */
 /**
- * okno editace faktury
+ * okno editace faktury - NEPOUŽÍVÁ SE, NAHRAZENO EDITACÍ V TABULCE
  *
  * @author Fragolka
  */
@@ -75,7 +75,7 @@ public class EditovatFakturu extends Frame {
 
 
         //vzhled okna
-        this.setTitle("Editace faktury č. " + Integer.toString(faktura.getCisloFaktury()));
+        this.setTitle("Editace faktury č. " + Integer.toString(faktura.getId()));
         this.setSize(400, 400);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -130,7 +130,7 @@ public class EditovatFakturu extends Frame {
         grid2.add(pDatum);
         grid2.add(okButton);
 
-        Label cisFaktura = new Label("Fakutra č. " + Integer.toString(faktura.getCisloFaktury()));
+        Label cisFaktura = new Label("Fakutra č. " + Integer.toString(faktura.getId()));
         cisFaktura.setFont(new Font("Arial CE", Font.BOLD, 14));
 
         this.setLayout(new BorderLayout(10, 10));
@@ -201,7 +201,7 @@ public class EditovatFakturu extends Frame {
                         if (klienti.list.isEnabled()) {
                             OknoMenu.faktury.odeberPrvek(EditovatFakturu.this.index);
                             OknoMenu.faktury.seznam.add(EditovatFakturu.this.index,
-                                    Integer.toString(faktura.getCisloFaktury())
+                                    Integer.toString(faktura.getId())
                                     + ", " + Menu.klienti.get(idx).getJmeno());
                             faktura.setKlient(Menu.klienti.get(idx));
                         }
@@ -209,26 +209,9 @@ public class EditovatFakturu extends Frame {
                         faktura.setPolozky(novePolozkyFaktura);
                         
                         Database.getInstance().updateFaktura(faktura);
-                        //přidat klienta do seznamu v hlaním okně
-                        //System.out.println(idx);
-
-
                         //zavřít okno                        
                         EditovatFakturu.this.dispose();
 
-//                        try {
-//                            ObjectOutputStream out = new ObjectOutputStream(
-//                                    new FileOutputStream("faktury"));
-//                            out.writeObject(Menu.faktury);
-//                            out.close();
-//
-//                            ObjectOutputStream out2 = new ObjectOutputStream(
-//                                    new FileOutputStream("cisloFaktury"));
-//                            out2.writeInt(Redap.cisloFaktury);
-//                            out2.close();
-//                        } catch (IOException ex) {
-//                            ex.printStackTrace();
-//                        }
                     } catch (Exception pe) {
                         JOptionPane.showMessageDialog(null,
                                 "Chybné datum", "Chyba", JOptionPane.OK_OPTION);

@@ -79,17 +79,6 @@ public class EditovatKlienta extends Frame {
 
         public void actionPerformed(ActionEvent e) {
             try {
-
-//                Klient novyKlient = new Klient(nazev.vstup.getText(),
-//                        ulice.vstup.getText(),
-//                        psc.vstup.getText(),
-//                        ico.vstup.getText(),
-//                        dic.vstup.getText(),
-//                        Double.parseDouble(sleva.vstup.getText()));
-//                
-//                Menu.klienti.set(idx, novyKlient);
-                
-                       
                 klient.setJmeno(nazev.vstup.getText());
                 klient.setUlice(ulice.vstup.getText());
                 klient.setPsc(psc.vstup.getText());
@@ -102,18 +91,9 @@ public class EditovatKlienta extends Frame {
                 OknoMenu.klienti.odeberPrvek(idx);
                 OknoMenu.klienti.seznam.add(idx, klient.getJmeno());
 
-//                try {                    
-//                    ObjectOutputStream out = new ObjectOutputStream(
-//                            new FileOutputStream("klienti"));
-//                    out.writeObject(Menu.klienti);
-//                    out.close();
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
 
             } catch (Exception ex) {
-                System.err.println(ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Chyba", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Nelze pripojit k databazi", "Chyba", JOptionPane.OK_OPTION);
             }
             
             //zavřít okno

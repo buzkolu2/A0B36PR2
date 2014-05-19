@@ -37,8 +37,6 @@ public class Faktura implements java.io.Serializable {
         this.datumPlneni = datumPlneni;
         vystaveni = new Date();
         this.polozky = polozky;
-        Redap.cisloFaktury++;
-        this.cisloFaktury = Redap.cisloFaktury;
     }
 
     public int getId() {
